@@ -1,7 +1,8 @@
 # The-Oxford-IIIT-Pet
 ## Overview
-This project uses the Oxford-IIIT Pet Dataset to build a machine learning model for multiclass classification of pet breeds. The model is built using PyTorch and ResNet50, a pretrained convolutional neural network. The project includes data preprocessing, training, and evaluation of the model.
+This project uses the Oxford-IIIT Pet Dataset to build a machine learning model for multiclass classification of pet breeds. The original paper titled ["Cats and Dogs"](https://www.robots.ox.ac.uk/~vgg/publications/2012/parkhi12a/) (Parkhi et al., 2012) reports an average accuracy of about 59% on this challenging task.
 
+However, through the application of deep learning techniques and fine-tuning of pretrained models such as ResNet34 and ResNet50, I have achieved a significantly higher accuracy of 90.75%, which greatly surpasses the original paper's results.
 
 
 
@@ -37,7 +38,36 @@ SGD (Stochastic Gradient Descent): A classic optimizer that updates the model pa
 ## Performance Metrics used: 
 The performance is evaluated based on accuracy, loss, and validation metrics to ensure that it effectively classifies pet breeds and generalizes well to unseen data. Additionally, a confusion matrix is used to assess the model's ability to correctly classify each pet breed and identify any common misclassifications. 
 
-## Prerequisites
+
+## Folder Structure
+
+### `models/`
+
+This folder contains the code for defining and implementing the ResNet models used in this project.
+
+- **`resnet_models.py`**: Defines custom ResNet models, including modifications to ResNet34 and ResNet50 architectures. The models include feature extraction layers from pre-trained ResNet architectures followed by custom classification layers.
+
+### `weights/`
+
+This folder stores the trained model weights.
+
+- **`best_model.pth`**: The file where the weights of the best-performing model are saved.
+- 
+
+
+
+
+## Getting Started
+
+### Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/MarinaNasser/The-Oxford-IIIT-Pet.git
+    ```
+2. Install the required packages:
+
 - Python 3.6 or higher
 - PyTorch 1.7.0 or higher
 - torchvision 0.8.0 or higher
@@ -52,6 +82,21 @@ You can install the necessary packages using pip:
 ```
 pip install torch torchvision matplotlib numpy pandas pillow
 ```
+
+### Usage
+
+ **Load and Use a Model**: Load a saved model from the `weights/` folder and use it for inference.
+
+    
+    from models.resnet_models import CustomResNet34, CustomResNet50
+    import torch
+
+    model = CustomResNet50(num_classes=10)  # Adjust the number of classes as needed
+    model.load_state_dict(torch.load('weights/best_model.pth'))
+    
+
+
+
 
 
 #### Contact
