@@ -37,7 +37,36 @@ SGD (Stochastic Gradient Descent): A classic optimizer that updates the model pa
 ## Performance Metrics used: 
 The performance is evaluated based on accuracy, loss, and validation metrics to ensure that it effectively classifies pet breeds and generalizes well to unseen data. Additionally, a confusion matrix is used to assess the model's ability to correctly classify each pet breed and identify any common misclassifications. 
 
-## Prerequisites
+
+## Folder Structure
+
+### `models/`
+
+This folder contains the code for defining and implementing the ResNet models used in this project.
+
+- **`resnet_models.py`**: Defines custom ResNet models, including modifications to ResNet34 and ResNet50 architectures. The models include feature extraction layers from pre-trained ResNet architectures followed by custom classification layers.
+
+### `weights/`
+
+This folder stores the trained model weights.
+
+- **`best_model.pth`**: The file where the weights of the best-performing model are saved.
+- 
+
+
+
+
+## Getting Started
+
+### Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/MarinaNasser/The-Oxford-IIIT-Pet.git
+    ```
+2. Install the required packages:
+
 - Python 3.6 or higher
 - PyTorch 1.7.0 or higher
 - torchvision 0.8.0 or higher
@@ -52,6 +81,21 @@ You can install the necessary packages using pip:
 ```
 pip install torch torchvision matplotlib numpy pandas pillow
 ```
+
+### Usage
+
+ **Load and Use a Model**: Load a saved model from the `weights/` folder and use it for inference.
+
+    
+    from models.resnet_models import CustomResNet34, CustomResNet50
+    import torch
+
+    model = CustomResNet50(num_classes=10)  # Adjust the number of classes as needed
+    model.load_state_dict(torch.load('weights/best_model.pth'))
+    
+
+
+
 
 
 #### Contact
