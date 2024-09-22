@@ -2,7 +2,7 @@
 ## Overview
 This project uses the Oxford-IIIT Pet Dataset to build a machine learning model for multiclass classification of pet breeds. The original paper titled ["Cats and Dogs"](https://www.robots.ox.ac.uk/~vgg/publications/2012/parkhi12a/) (Parkhi et al., 2012) reports an average accuracy of about 59% on this challenging task.
 
-However, through the application of deep learning techniques and fine-tuning of pretrained models such as ResNet34 and ResNet50, I have achieved a significantly higher accuracy of 90.75%, which greatly surpasses the original paper's results.
+However, through the application of deep learning techniques and fine-tuning of pretrained models such as ResNet34 and ResNet50, I have achieved a significantly higher accuracy of 93.13%, which greatly surpasses the original paper's results.
 
 
 
