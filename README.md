@@ -53,24 +53,6 @@ The performance is evaluated based on accuracy, loss, and validation metrics to 
 
 ### `weights/`
 
-This folder stores the trained models weights.
-
-Here’s the revised and expanded section for your README under "Folder Structure":
-
----
-
-## Folder Structure
-
-### `models/`
-
-- **`PetDataset class`**: Contains the dataset class for loading and preprocessing the Oxford-IIIT Pet Dataset, handling data augmentation, normalization, and splitting into training, validation, and testing sets.
-- **`train.py`**: Implements the training function for the classification models. Includes model setup, loss functions, optimizers, and the training loop, saving the best performing model based on validation accuracy.
-- **`test.py`**: Contains the testing function for evaluating the performance of trained models on the test dataset. Includes accuracy and performance metrics computation, as well as visualization of results.
-- **`ResNet.py`**: Defines custom ResNet models, including modifications to ResNet34 and ResNet50 architectures. The models are built using pre-trained ResNet feature extraction layers and custom classification layers.
-- **`EfficientNet.py`**: Contains implementations of EfficientNet models. This includes the pre-trained EfficientNetB0 model adapted for the dataset, and a custom EfficientNetB0 model with feature extraction layers and additional fully connected layers tailored for multiclass classification.
-
-### `weights/`
-
 This folder stores the trained model weights for reuse or further fine-tuning.
 
 - **`EfficientNet_best_model.pth`**: Stores the best-performing EfficientNet model weights.
