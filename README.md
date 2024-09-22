@@ -113,11 +113,11 @@ pip install torch torchvision matplotlib numpy pandas pillow
  **Load and Use a Model**: Load a saved model from the `weights/` folder and use it for inference.
 
     
-    from models.resnet_models import CustomResNet34, CustomResNet50
+    from Models.EfficientNet import get_pretrained_efficientnet_b0
     import torch
 
-    model = CustomResNet50(num_classes=10)  # Adjust the number of classes as needed
-    model.load_state_dict(torch.load('weights/best_model.pth'))
+    model = get_pretrained_efficientnet_b0(num_classes=37)
+    model.load_state_dict(torch.load('weights/EfficientNet_best_model.pth'))
     
 
 
@@ -125,5 +125,5 @@ pip install torch torchvision matplotlib numpy pandas pillow
 
 
 #### Contact
-For any questions or contributions, please open an issue or contact me at marinanasser8@gmail.com.
+For any questions or contributions, contact me at marinanasser8@gmail.com.
 
