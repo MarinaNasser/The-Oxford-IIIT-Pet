@@ -15,10 +15,11 @@ def train_model(model, criterion, optimizer, train_loader, num_epochs=10):
         model.train()
         running_loss = 0.0
         correct_train_preds = 0
+        total_train_preds = 0
 
         for i, (inputs, labels) in enumerate(train_loader):
-            inputs = inputs.to(device)
-            labels = labels.to(device)
+            inputs = inputs
+            labels = labels
 
             optimizer.zero_grad()  # Zero gradients for every batch!
             outputs = model(inputs)  # Forward pass
@@ -29,9 +30,10 @@ def train_model(model, criterion, optimizer, train_loader, num_epochs=10):
             running_loss += loss.item()
             _, preds = torch.max(outputs, 1)  # Computes the maximum value across dimension 1 (class dimension)
             correct_train_preds += torch.sum(preds == labels.data)
+            total_train_preds += labels.size(0)
 
-        epoch_loss = running_loss / len(train_loader)
-        epoch_acc = correct_train_preds 
+        epoch_loss = running_loss / total_train_preds
+        epoch_acc = correct_train_preds.double() / total_train_preds
 
         train_losses.append(epoch_loss)
         train_accuracies.append(epoch_acc)
