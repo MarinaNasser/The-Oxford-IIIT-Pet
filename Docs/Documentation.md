@@ -4,7 +4,7 @@
 This project aims to develop a machine learning model that performs multiclass classification of pet breeds using the Oxford-IIIT Pet Dataset. The dataset contains images of various cat and dog breeds, labeled with their respective classes. The goal is to accurately classify the breeds based on input images.
 
 The original paper titled "Cats and Dogs" (Parkhi et al., 2012) reports an average accuracy of about 59% on this challenging task.
-However, through the application of deep learning techniques and fine-tuning of pretrained models such as ResNet34 and ResNet50, I have achieved a significantly higher accuracy of 90.75%, which greatly surpasses the original paper's results.
+However, through the application of deep learning techniques and fine-tuning of pretrained models such as ResNet34, ResNet50 and EfficientNetB0, I have achieved a significantly higher accuracy of 93.13%,, which greatly surpasses the original paper's results.
 
 ## 2. Data Preprocessing Steps
 ### 2.1 Dataset Description
@@ -17,7 +17,7 @@ The Oxford-IIIT Pet Dataset consists of 37 breeds (including both cats and dogs)
 
 
 ### 2.2 Data Loading
-- The dataset was loaded from the kaggle.
+- The dataset was loaded from [[kaggle.com](https://www.robots.ox.ac.uk/~vgg/data/pets/)]
 - A DataFrame was created to manage the data effectively, containing columns for Image, Class ID, Species, and Breed ID extracted from annotations/list.txt file.
 - Data types for Class ID, Species, and Breed ID were converted to integers.
 
@@ -78,10 +78,21 @@ In preparation for my multiclass classification project on the Oxford-IIIT Pet D
        - Test Accuracy: not specified
      
 
+### 3.2. Models Used
+The project leverages pretrained models, including ResNet50, ResNet34 and EfficientNet and customizes them with additional fully connected layers to adapt to a specific classification task.
+
+#### ResNet-34
+The [ResNet-34](https://pytorch.org/vision/main/models/generated/torchvision.models.resnet34.html#torchvision.models.resnet34) model is a deep convolutional neural network that is part of the ResNet (Residual Network) family. Pre-trained on the ImageNet-1K dataset, ResNet-34 features 34 layers and employs residual connections to address the vanishing gradient problem often encountered in deep networks. This architecture enables effective training of deeper networks by facilitating the flow of gradients through residual connections, which helps in learning more complex features and improves overall performance on image classification tasks.
+
+#### ResNet-50
+The [ResNet-50](https://pytorch.org/vision/main/models/generated/torchvision.models.resnet50.html#torchvision.models.resnet50) model extends the ResNet architecture to 50 layers, incorporating residual blocks and bottleneck layers for enhanced computational efficiency. This deeper configuration leverages residual connections to mitigate gradient issues, while the bottleneck design reduces computational overhead by compressing the feature maps. Pre-trained on the ImageNet-1K dataset, ResNet-50 is well-suited for transfer learning and fine-tuning, making it highly effective for complex classification tasks like those encountered in the Oxford-IIIT Pet Dataset.
+
+#### EfficientNetB0
+The [EfficientNetB0](https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_b0.html#torchvision.models.efficientnet_b0) model is part of the EfficientNet family, which is designed using a compound scaling method that uniformly scales network depth, width, and resolution. This balanced scaling approach allows EfficientNetB0 to achieve high performance with fewer parameters and computational resources compared to traditional architectures. Pre-trained on the ImageNet-1K dataset, EfficientNetB0 leverages advanced training techniques and regularization methods to enhance generalization and robustness. Its efficient architecture and pretraining make it highly effective for transfer learning and fine-tuning, enabling superior performance on complex classification tasks like those in the Oxford-IIIT Pet Dataset.
 
   
  
-## Trials Overview
+### 3.3. Trials Overview
 
 Throughout my trials, I aimed to explore various models and hyperparameters to identify the most effective configuration for this classification task. 
 
@@ -96,8 +107,6 @@ Throughout my trials, I aimed to explore various models and hyperparameters to i
   - I varied learning rates and optimizers (Adam and SGD) to assess their impact on model performance.
   - I also Tried the EffiecientNetB0 Model although the notebook found does not specify the test accuracy to compare my results with, i wanted to give a try.
   
-
-
 
 ### 3.3 Training Configuration
 - The models were trained using the Adam optimizer and SGD, as indicated in the literature, along with Cross-Entropy Loss as the loss function, given their effectiveness in multiclass classification tasks.
@@ -129,7 +138,7 @@ I tried to replicate the results of the notebook first, the notebook trained on 
 - **Test Accuracy:** 89.864%
 
 ### 2nd Trial 
-I wanted to push for higher accuracy so i tried the ResNet50 without any extra layers
+I wanted to push for higher accuracy so i tried the ResNet50 Pretrained model.
 
 ### Using Adam Optimizer
 
@@ -185,9 +194,16 @@ I wanted to push for higher accuracy so i tried the ResNet50 without any extra l
 | 5e-05         | 10     | 0.0413        | 0.9911            | 0.3292          | 0.9099              |
 | 1e-05         | 10     | 0.0050        | 0.9994            | 0.2930          | 0.9252              |
 
+
+### 4th Trial (EfficientNetB0)
+
+#### Using Adam Optimizer
+| Model               | Learning Rate | Epochs | Training Loss | Training Accuracy | Validation Loss | Validation Accuracy |
+|---------------------|---------------|--------|---------------|-------------------|-----------------|---------------------|
+| EfficientNetB0       | 5e-05         | 8/15   | 0.0962        | 0.9821            | 0.2170          | 0.9362              |
+| Custom EfficientNetB0| 5e-05         | 11/15  | 0.0357        | 0.9928            | 0.2401          | 0.9362              |
+
 ---
-
-
 
 ## 5. Evaluation
 ### 5.1 Testing
@@ -212,11 +228,34 @@ I wanted to push for higher accuracy so i tried the ResNet50 without any extra l
    Adding additional layers significantly improved accuracy. These layers allowed the model to better adapt to the specific nuances of the dataset by learning more detailed representations and reducing overfitting. The extra complexity enabled the model to generalize better, leading to improved performance on validation and test datasets.
 
 5. **Best Model:**
-   After thorough experimentation, the best-performing model was identified as ResNet50 with additional custom layers. This configuration achieved the highest validation and test accuracies, highlighting the importance of both depth and tailored architecture in achieving optimal performance.
+   After thorough experimentation, the best-performing model was identified as EfficientNetB0. This configuration achieved the highest validation and test accuracies, and here's a comparison between ResNet50 and EfficientNetB0 explaiing why it achieved better accuracies.
+   The difference in accuracy between ResNet50 and EfficientNetB0 can be attributed to several factors related to their architectures, training strategies, and design philosophies. Here are some key reasons why EfficientNetB0 might outperform ResNet50 in your specific case:
 
-6. **Future Experiments:**
+#### 1. **Model Architecture**:
+   - **EfficientNetB0**: EfficientNet models are designed using a compound scaling method that balances network depth, width, and resolution. This allows EfficientNet to achieve better performance with fewer parameters compared to traditional architectures.
+   - **ResNet50**: ResNet50 is a deeper network with 50 layers, primarily focusing on depth to improve performance. While it is effective, it may not be as efficient in terms of parameter usage and computational cost as EfficientNet.
+
+#### 2. **Parameter Efficiency**:
+   - **EfficientNetB0**: EfficientNetB0 is known for its parameter efficiency, achieving high accuracy with fewer parameters and FLOPs (floating-point operations per second). This efficiency can lead to better generalization and performance on various tasks.
+   - **ResNet50**: ResNet50 has more parameters and may require more computational resources, which can sometimes lead to overfitting if not managed properly.
+
+#### 3. **Pretraining and Transfer Learning**:
+   - **EfficientNetB0**: EfficientNet models are pretrained on large datasets like ImageNet, and their efficient architecture allows them to transfer learned features effectively to new tasks.
+   - **ResNet50**: While also pretrained on large datasets, ResNet50 may not transfer features as efficiently as EfficientNet due to its larger size and different architectural design.
+
+
+### Conclusion:
+EfficientNetB0's superior performance in this case can be attributed to its efficient architecture, balanced scaling strategy. While ResNet50 is a powerful model, EfficientNetB0's design allows it to achieve higher accuracy with fewer parameters and computational resources.
+
+
+7. **Future Experiments:**
    To further increase accuracy, future experiments could explore the following avenues:
    - **Data Augmentation:** Applying more aggressive data augmentation strategies to increase the diversity of training samples and improve model robustness.
+   - **Experiment with Different Models**: experimenting with different models and architectures to find the best fit for the dataset.
    - **Ensemble Methods:** Combining predictions from multiple models to enhance overall accuracy and reduce variance in predictions.
    - **Experiment with Other Architectures:** Exploring more recent models could yield better results.
    - **Fine-tuning Pretrained Models:** Instead of training only the final layers, fine-tuning the entire model could help capture more nuanced features from the images.
+   - **Hyperparameter Tuning**: Perform thorough hyperparameter tuning for each model to ensure optimal performance.
+   - **Data Augmentation and Regularization**: Use advanced data augmentation and regularization techniques to improve model generalization and robustness.
+
+
